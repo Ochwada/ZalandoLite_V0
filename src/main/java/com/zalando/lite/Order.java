@@ -45,9 +45,22 @@ public class Order {
      */
 
 
-    public Order(Customer customer, List<OrderItem> items) {
+    public Order(Customer customer, List<OrderItem> items, LocalDateTime orderDate, Courier courier, int orderId) {
+        this.customer = customer;
+        this.items = items;
+        this.orderDate = LocalDateTime.now();
+        this.courier = courier;
+        this.orderId = orderId;
     }
 
+
+    public Order() {
+    }
+
+    public Order(Customer customer, List<OrderItem> items) {
+        this.customer = customer;
+        this.items = items;
+    }
 
 
     // Returns the order ID

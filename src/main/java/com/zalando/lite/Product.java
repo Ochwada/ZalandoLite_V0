@@ -45,6 +45,9 @@ public class Product {
     // List of size options (e.g., "S", "M", "L")
     private List<SIZE> availableSizes;
 
+
+    private static int nextId = 1000;
+
     public enum SIZE {
         XS, S, M, L, XL, XXL
     }
@@ -61,6 +64,16 @@ public class Product {
         this.price = price;
         this.stock = stock;
         this.availableSizes = new ArrayList<>(); // initialize the array list of SIZE.
+    }
+
+    public Product(String pname, String category, double price, int stock) {
+        this.id = nextId++;
+        this.name = pname;
+        this.category = category;
+        this.price = price;
+        this.stock = stock;
+        //this.availableSizes = new HashMap<>(sizeStock);
+        this.availableSizes = new ArrayList<>();
     }
 
     // Empty Constructor

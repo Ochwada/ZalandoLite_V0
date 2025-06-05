@@ -36,10 +36,34 @@ public class Customer {
     // A list of the customer's favorite product categories (e.g., "Shoes", "Accessories")
     private List<String> favoriteCategories;
 
+    private static int nextId = 1;
+
+
+
     /**
      * Constructor to initialize a Customer.
      * Helps with registration and setup of test data.
      */
+
+    public Customer(int id, String name, String email, boolean isVip, List<String> favoriteCategories) {
+        this.id = id;
+        this.name = name;
+        this.email = email;
+        this.isVip = isVip;
+        this.favoriteCategories = new ArrayList<>();
+    }
+
+    public Customer() {
+    }
+
+    public Customer(String name, String email, boolean isVip) {
+        this.id = nextId++;
+        this.name = name;
+        this.email = email;
+        this.isVip = isVip;
+        this.favoriteCategories = new ArrayList<>();
+
+    }
 
     // Returns the customer's ID
     public int getId() {

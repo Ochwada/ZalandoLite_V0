@@ -1,5 +1,6 @@
 package com.zalando.lite.annotations;
 
+import java.lang.annotation.*;
 /**
  * Indicates that a customer has VIP status in the ZalandoLite system.
  * <p>
@@ -19,6 +20,8 @@ package com.zalando.lite.annotations;
  *
  * @author Java Mentor
  */
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
 public @interface VIP {
     // Marker annotation: no members or parameters defined.
     // Used only for runtime "marking" via reflection.

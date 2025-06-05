@@ -3,7 +3,8 @@ package com.zalando.lite;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.List;
+import java.time.*;
+import java.util.*;
 
 /**
  * Handles writing delivery reports to a text file.
@@ -32,9 +33,19 @@ public class ReportManager {
      * @param filePath path to the file where the report should be saved
      */
     public void exportDeliveryReport(List<Delivery> deliveries, String filePath) {
-        // TODO: Use FileWriter wrapped in try-with-resources
-        // TODO: Loop over deliveries and write each one to a new line
-        // TODO: Catch and handle IOException with a user-friendly message
+        // Use FileWriter wrapped in try-with-resources
+        // Loop over deliveries and write each one to a new line
+        // Catch and handle IOException with a user-friendly message
+
+        try(FileWriter writer = new FileWriter(filePath)){
+            for (Delivery delivery: deliveries){
+                writer.write(delivery.toString());
+                writer.write(System.lineSeparator()); // newline
+            }
+            System.out.println("Delivery report exported to: " + filePath);
+        }catch (IOException e){
+            System.out.println(" Failed to write delivery report " + e.getMessage());
+        }
     }
 
     /**
@@ -43,7 +54,10 @@ public class ReportManager {
      * @return a recommended file path for report export
      */
     public String getDefaultReportPath() {
-        // TODO: Return a file name like "delivery-report-2025-05-30.txt"
-        return null;
+        // Return a file name like "delivery-report-2025-05-30.txt"
+
+        String timestamp = LocalDateTime.now().toString();
+
+        return "delivery-report-" + timestamp + ".txt";
     }
 }

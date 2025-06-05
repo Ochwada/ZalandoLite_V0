@@ -1,8 +1,7 @@
 package com.zalando.lite;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 /**
  * Handles the creation, validation, and storage of orders in the ZalandoLite system.
@@ -27,6 +26,11 @@ public class OrderManager {
 
     // Used to update inventory after order placement
     private InventoryManager inventoryManager;
+
+    public OrderManager(InventoryManager inventoryManager) {
+        this.inventoryManager = inventoryManager;
+        this.customerOrders = new HashMap<>();
+    }
 
     /**
      * Creates a new order for the given customer and list of order items.
