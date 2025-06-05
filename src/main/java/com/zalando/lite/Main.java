@@ -24,6 +24,8 @@ public class Main {
         // Startup message to indicate the system has launched
         System.out.println("Welcome to ZalandoLite!");
 
+
+
         // TODO: Create scanner input loop
         // TODO: Display menu options and call manager methods
         // TODO: Use switch-case or if-else to control flow

@@ -65,9 +65,10 @@ public class Product {
 
     // Empty Constructor
     public Product() {
-
+        // no-arg constructor
     }
-
+    /**
+     * Getters and Setters of */
 
     // Getter and setter for ID
     public int getId() {
