@@ -1,20 +1,20 @@
 package com.zalando.lite;
 
-import java.util.List;
-import java.util.Map;
+import java.util.*;
+
 
 /**
  * Manages customer reviews in the ZalandoLite system.
- *
+ * <p>
  * This class is responsible for:
  * - Adding new reviews to a product
  * - Retrieving all reviews for a given product
- *
+ * <p>
  * Internally, it uses a map where each key is a product ID, and the value is
  * a list of reviews associated with that product.
- *
+ * <p>
  * This design allows fast lookup and supports multiple reviews per product.
- *
+ * <p>
  * Concepts reinforced:
  * - Nested collections (`Map<Integer, List<Review>>`)
  * - Data retrieval patterns
@@ -25,17 +25,32 @@ public class ReviewManager {
     // Stores reviews by product ID
     private Map<Integer, List<Review>> reviewMap;
 
+    public ReviewManager() {
+        this.reviewMap = new HashMap<>();
+    }
+
     /**
      * Adds a review to the map, linked by the product's ID.
      * Initializes a new list if it's the first review for the product.
      *
      * @param review the review to add
      */
+
+
     public void addReview(Review review) {
-        // TODO: Get product ID from review
-        // TODO: Check if review list exists for this product
-        // TODO: If not, create a new list
-        // TODO: Add review to the list
+        // Get product ID from review
+        int productId = review.getProduct().getId();
+
+        // Check if review list exists for this product
+        // If not, create a new list
+        List<Review> reviews = reviewMap.get(productId);
+
+        if (reviews == null) {
+            reviews = new ArrayList<>();
+            reviewMap.put(productId, reviews);
+        }
+        //Add review to the list
+        reviews.add(review);
     }
 
     /**
@@ -45,9 +60,13 @@ public class ReviewManager {
      * @return list of reviews or empty list if none exist
      */
     public List<Review> getReviewsForProduct(int productId) {
-        // TODO: Return the list from the map
-        // TODO: If no reviews exist, return an empty list instead of null
-        return null;
+        // Return the list from the map
+        List<Review> reviews = reviewMap.get(productId);
+        // If no reviews exist, return an empty list instead of null
+        if (reviews == null) {
+            return new ArrayList<>();
+        }
+        return reviews;
     }
 
     /**
@@ -55,6 +74,16 @@ public class ReviewManager {
      * Useful for menus or reports.
      */
     public void printReviewsForProduct(int productId) {
-        // TODO: Get and print each review from the list
+        // Get and print each review from the list
+        List<Review> reviews = reviewMap.get(productId);
+
+        if (reviews == null || reviews.isEmpty()) {
+            System.out.println("No reviews found for product ID: " + productId);
+        }
+
+        System.out.println("Reviews for product ID " + productId + ":");
+        for (Review review : reviews) {
+            System.out.println(review);
+        }
     }
 }
