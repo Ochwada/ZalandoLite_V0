@@ -35,6 +35,9 @@ public class Order {
 
     // The date and time the order was created
     private LocalDateTime orderDate;
+
+    // ADDING COURIER
+    private Courier courier;
     /**
      * Constructor to initialize an order with a customer and list of items.
      * <p>
@@ -85,6 +88,15 @@ public class Order {
     // Sets the order timestamp (usually auto-generated)
     public void setOrderDate(LocalDateTime orderDate) {
         this.orderDate = LocalDateTime.now();
+    }
+
+    // ADDING COURIER -setter and Getter (for assigning courier to order)
+    public Courier getCourier() {
+        return courier;
+    }
+
+    public void setCourier(Courier courier) {
+        this.courier = courier;
     }
 
     /**
