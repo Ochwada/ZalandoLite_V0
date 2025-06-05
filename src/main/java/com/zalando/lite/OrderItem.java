@@ -26,16 +26,24 @@ public class OrderItem {
      */
 
     // Returns the product associated with this item
-    public Product getProduct() { /* ... */ }
+    public Product getProduct() {
+        return product;
+    }
 
     // Sets the product for this item
-    public void setProduct(Product product) { /* ... */ }
+    public void setProduct(Product product) {
+        this.product = product;
+    }
 
     // Returns the quantity ordered
-    public int getQuantity() { /* ... */ }
+    public int getQuantity() {
+        return quantity;
+    }
 
     // Sets the quantity ordered
-    public void setQuantity(int quantity) { /* ... */ }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
 
     /**
      * Calculates the subtotal (product price × quantity).
@@ -52,5 +60,10 @@ public class OrderItem {
      * Returns a string summary of this order item.
      */
     @Override
-    public String toString() { /* ... */ }
+    public String toString() {
+        return "OrderItem{" +
+                "product=" + product +
+                ", quantity=" + quantity +
+                '}';
+    }
 }
