@@ -2,11 +2,11 @@ package com.zalando.lite;
 
 /**
  * Represents a single line item in an {@link Order}.
- *
+ * <p>
  * Each OrderItem connects a specific {@link Product} with the quantity purchased.
  * This class helps calculate the total price for the order and allows the system
  * to break down orders into granular, trackable components.
- *
+ * <p>
  * Concepts reinforced:
  * - Composition: combining two classes (Product + quantity)
  * - Data modeling: simple container object
@@ -21,7 +21,7 @@ public class OrderItem {
 
     /**
      * Constructor to create an OrderItem.
-     *
+     * <p>
      * Typically used by the OrderManager when processing a shopping cart.
      */
 
@@ -39,12 +39,14 @@ public class OrderItem {
 
     /**
      * Calculates the subtotal (product price × quantity).
-     *
+     * <p>
      * Useful for summing up totals in Order class.
      *
      * @return total cost of this line item
      */
-    public double getSubtotal() { /* ... */ }
+    public double getSubtotal() {
+        return product.getPrice() * quantity;
+    }
 
     /**
      * Returns a string summary of this order item.
