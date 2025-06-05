@@ -19,11 +19,19 @@ public class OrderItem {
     // Quantity of the product ordered
     private int quantity;
 
+
     /**
      * Constructor to create an OrderItem.
      * <p>
      * Typically used by the OrderManager when processing a shopping cart.
      */
+    public OrderItem(Product product, int quantity) {
+        this.product = product;
+        this.quantity = quantity;
+    }
+
+    public OrderItem() {
+    }
 
     // Returns the product associated with this item
     public Product getProduct() {

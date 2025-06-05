@@ -35,12 +35,17 @@ public class Order {
 
     // The date and time the order was created
     private LocalDateTime orderDate;
-
     /**
      * Constructor to initialize an order with a customer and list of items.
      * <p>
      * Automatically sets the order date to the current timestamp.
      */
+
+
+    public Order(Customer customer, List<OrderItem> items) {
+    }
+
+
 
     // Returns the order ID
     public int getOrderId() {
