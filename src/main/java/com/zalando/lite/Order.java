@@ -60,6 +60,7 @@ public class Order {
     public Order(Customer customer, List<OrderItem> items) {
         this.customer = customer;
         this.items = items;
+        this.orderDate = LocalDateTime.now();
     }
 
 
@@ -132,11 +133,12 @@ public class Order {
      */
     @Override
     public String toString() {
-        return "Order{" +
-                "orderId=" + orderId +
-                ", customer=" + customer +
-                ", items=" + items +
-                ", orderDate=" + orderDate +
-                '}';
+        return "Order {\n" +
+                "  orderId = " + orderId + ",\n" +
+                "  customer = " + customer + ",\n" +
+                "  items = " + items + ",\n" +
+                "  orderDate = " + orderDate + "\n" +
+                "}";
     }
+
 }

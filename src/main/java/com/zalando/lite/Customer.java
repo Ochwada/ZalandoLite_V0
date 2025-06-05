@@ -36,7 +36,7 @@ public class Customer {
     // A list of the customer's favorite product categories (e.g., "Shoes", "Accessories")
     private List<String> favoriteCategories;
 
-    private static int nextId = 1;
+    private static int nextId = 100;
 
 
 

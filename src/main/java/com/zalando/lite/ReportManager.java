@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.time.*;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 /**
@@ -55,8 +56,9 @@ public class ReportManager {
      */
     public String getDefaultReportPath() {
         // Return a file name like "delivery-report-2025-05-30.txt"
-
-        String timestamp = LocalDateTime.now().toString();
+        LocalDateTime now = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd_HH-mm-ss");
+        String timestamp = now.format(formatter);
 
         return "delivery-report-" + timestamp + ".txt";
     }

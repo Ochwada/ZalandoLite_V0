@@ -1,5 +1,6 @@
 package com.zalando.lite;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -24,6 +25,10 @@ public class InventoryManager {
     // Stores all products currently available in the inventory
     private List<Product> products;
 
+    public InventoryManager() {
+        this.products = new ArrayList<>();
+    }
+
     /**
      * Adds a product to the inventory list.
      * <p>
@@ -32,6 +37,7 @@ public class InventoryManager {
      * @param product the product to add to the inventory
      */
     public void addProduct(Product product) {
+        
         products.add(product);
     }
 
@@ -90,6 +96,14 @@ public class InventoryManager {
         System.err.println("Product with ID " + productId + "not found.");
         return false;// product not found
     }
+
+    public List<Product> getAllProducts() {
+        return new ArrayList<>(this.products); // assuming products is a List<Product>
+    }
+
+    /**
+     * */
+
 
     /**
      * Optional: Check if product exists and is in stock.

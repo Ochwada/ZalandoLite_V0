@@ -2,6 +2,7 @@ package com.zalando.lite;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -41,6 +42,8 @@ public class Main {
             System.out.println("3. Create Order");
             System.out.println("4. View Orders");
             System.out.println("5. Export Delivery Report");
+            System.out.println("6. View All Customers");
+            System.out.println("7. View All Products and Stock");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
 
@@ -53,6 +56,9 @@ public class Main {
                 case "3" -> createOrder();
                 case "4" -> viewOrders();
                 case "5" -> exportDeliveryReport();
+                case "6" -> viewCustomers();
+                case "7" -> viewProducts();
+
                 case "0" -> {
                     running = false;
                     System.out.println("👋 Exiting ZalandoLite. Goodbye!");
@@ -63,18 +69,67 @@ public class Main {
 
 
     }
+    private static final CustomerManager customerManager = new CustomerManager();
+    private static final InventoryManager inventoryManager = new InventoryManager();
+    private static final OrderManager orderManager = new OrderManager(inventoryManager);
+    private static final ReportManager reportManager = new ReportManager();
+    private static final DeliveryService deliveryService = new DeliveryService();
+
+
+    public static   Scanner scanner = new Scanner(System.in);
+
+
+
+    // Case 7: View Orders
+    public static void viewProducts(){
+        List<Product> products = inventoryManager.getAllProducts(); // uses shared inventoryManager
+
+        if (products == null || products.isEmpty()) {
+            System.out.println("No products available.");
+            return;
+        }
+
+        System.out.println("--- Product Inventory ---");
+        for (Product product : products) {
+            System.out.println("ID: " + product.getId());
+            System.out.println("Name: " + product.getName());
+            System.out.println("Category: " + product.getCategory());
+            System.out.printf("Price: $%.2f\n", product.getPrice());
+            System.out.println("Stock: " + product.getStock());
+            System.out.println("-----");
+        }
+    }
+
+    // Case 6 : View Orders
+    public static void viewCustomers() {
+
+        Map<Integer, Customer> customers = customerManager.getAllCustomers();
+
+        if (customers.isEmpty()) {
+            System.out.println("No customers found.");
+        } else {
+            System.out.println("--- Registered Customers ---");
+            for (Map.Entry<Integer, Customer> entry : customers.entrySet()) {
+                Customer customer = entry.getValue();
+
+                System.out.println("ID: " + entry.getKey());
+                System.out.println("Name: " + customer.getName());
+                System.out.println("Email: " + customer.getEmail());
+                System.out.println("VIP: " + (customer.isVip() ? "Yes" : "No"));
+                System.out.println("-----");
+            }
+        }
+    }
 
     // Case 5 : View Orders
     public static void exportDeliveryReport() {
-        ReportManager reportManager = new ReportManager();
-        DeliveryService deliveryService = new DeliveryService();
 
         String reportPath = reportManager.getDefaultReportPath();
 
         List<Courier> couriers = deliveryService.getAvailableCouriers();
         List<Delivery> allDeliveries = new ArrayList<>();
 
-        for (Courier courier : couriers){
+        for (Courier courier : couriers) {
             // Create a dummy order (or get actual order if available)
             Order order = new Order(); // You must have a constructor or a mock Order object
             Delivery delivery = new Delivery(order, courier);
@@ -87,11 +142,6 @@ public class Main {
 
     // Case 4 : View Orders
     public static void viewOrders() {
-        Scanner scanner = new Scanner(System.in);
-
-        InventoryManager inventoryManager = new InventoryManager();
-        OrderManager orderManager = new OrderManager(inventoryManager);
-
 
         System.out.println("Enter customer ID to view order: ");
         int viewId = Integer.parseInt(scanner.nextLine());
@@ -109,16 +159,10 @@ public class Main {
 
     // Case 3 : CreateOrder
     public static void createOrder() {
-        Scanner scanner = new Scanner(System.in);
-
-        CustomerManager customerManager = new CustomerManager();
-        InventoryManager inventoryManager = new InventoryManager();
-        OrderManager orderManager = new OrderManager(inventoryManager);
-        DeliveryService deliveryService = new DeliveryService();
-
 
         System.out.println("Enter customer ID: ");
         int customerId = Integer.parseInt(scanner.nextLine());
+
         Customer orderCustomer = customerManager.getCustomerById(customerId);
 
         if (orderCustomer == null) {
@@ -135,6 +179,7 @@ public class Main {
             if (productId == 0) break;
 
             Product product = inventoryManager.findProductById(productId);
+
             if (product == null) {
                 System.err.println("Product not found. Please try again");
                 continue; // skip to next iteration
@@ -149,15 +194,20 @@ public class Main {
                 continue; // Allow retry
             }
 
-            OrderItem item = new OrderItem(product, quantity);
-            orderItems.add(item);
+            // Reduce stock
+            //product.setStock(product.getStock() - quantity);
+
+            orderItems.add(new OrderItem(product, quantity));
+            System.out.println("Added to order: " + product.getName() + " x " + quantity);
         }
 
         if (orderItems.isEmpty()) {
-            System.err.println("No items selected");
+            System.err.println("No items selected. Order not created.");
+            return;
         }
 
         Order newOrder = orderManager.createOrder(orderCustomer, orderItems);
+
         if (newOrder != null) {
             Delivery delivery = deliveryService.assignCourier(newOrder);
             System.out.println("✅ Order created with ID: " + newOrder.getOrderId());
@@ -174,9 +224,6 @@ public class Main {
 
     // Case 2 : Add Product
     public static void addProduct() {
-        Scanner scanner = new Scanner(System.in);
-        InventoryManager inventoryManager = new InventoryManager();
-
         System.out.println("Enter Product name: ");
         String pname = scanner.nextLine();
 
@@ -196,9 +243,7 @@ public class Main {
 
     // Case 1 : Add Customer
     public static void addCustomer() {
-        Scanner scanner = new Scanner(System.in);
         boolean isVip = false;
-        CustomerManager customerManager = new CustomerManager();
 
         System.out.println("Enter Customer name: ");
         String name = scanner.nextLine();

@@ -1,7 +1,7 @@
 package com.zalando.lite;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
+
 
 /**
  * Manages the registration and lookup of customers in the ZalandoLite system.
@@ -21,6 +21,8 @@ public class CustomerManager {
     // Stores customers using their ID as the key for quick access
     private Map<Integer, Customer> customers;
 
+    private int nextCustomerId = 100;
+
     public CustomerManager(Map<Integer, Customer> customers) {
         this.customers = new HashMap<>();
     }
@@ -37,7 +39,9 @@ public class CustomerManager {
      */
     public void registerCustomer(Customer customer) {
         customers.put(customer.getId(), customer);
+        nextCustomerId++;
     }
+
 
     /**
      * Retrieves a customer by their unique ID.

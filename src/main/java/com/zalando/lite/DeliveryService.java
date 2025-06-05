@@ -23,6 +23,10 @@ public class DeliveryService {
     // List of all couriers available to the system
     private List<Courier> couriers;
 
+    public DeliveryService() {
+        this.couriers = new ArrayList<>();
+    }
+
     /**
      * Attempts to assign an available courier to the given order.
      * <p>
