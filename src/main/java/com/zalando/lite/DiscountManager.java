@@ -35,8 +35,9 @@ public class DiscountManager {
     // Additional discount off a specific product
     Map<String, Double> categoryDiscounted = Map.of(
             "electronics", 0.5,
-            "t-shirt", 0.10,
-            "Jackets", 0.45
+            "shirt", 0.10,
+            "Jackets", 0.45,
+            "shoes", 0.20
     );
 
     public double applyDiscount(Customer customer, Product product) {

@@ -37,8 +37,9 @@ public class InventoryManager {
      * @param product the product to add to the inventory
      */
     public void addProduct(Product product) {
-        
+
         products.add(product);
+        // SHOULD ADD : the size part
     }
 
     /**

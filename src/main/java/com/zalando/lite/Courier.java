@@ -1,5 +1,7 @@
 package com.zalando.lite;
 
+import java.util.*;
+
 /**
  * Represents a courier who delivers customer orders.
  * <p>
@@ -28,10 +30,19 @@ public class Courier {
     // True if courier is available for assignment
     private boolean available;
 
+    private int nextId = 100;
+
     /**
      * Constructor to initialize a Courier.
      * Typically used when creating a list of couriers at app startup.
      */
+    public Courier(String name, String vehicleType, boolean available) {
+        this.name = name;
+        this.vehicleType = vehicleType;
+        this.available = available;
+        this.id = nextId++;
+    }
+
 
     // Returns the courier ID
     public int getId() {
@@ -72,6 +83,8 @@ public class Courier {
     public void setAvailable(boolean available) {
         this.available = available;
     }
+
+
 
     /**
      * Toggles the courier's availability.

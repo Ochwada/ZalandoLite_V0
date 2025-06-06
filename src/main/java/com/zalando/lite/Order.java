@@ -38,6 +38,7 @@ public class Order {
 
     // ADDING COURIER
     private Courier courier;
+    private static int nextId = 1000;
     /**
      * Constructor to initialize an order with a customer and list of items.
      * <p>
@@ -47,10 +48,11 @@ public class Order {
 
     public Order(Customer customer, List<OrderItem> items, LocalDateTime orderDate, Courier courier, int orderId) {
         this.customer = customer;
-        this.items = items;
+        this.items = new ArrayList<>(items);
         this.orderDate = LocalDateTime.now();
         this.courier = courier;
         this.orderId = orderId;
+        this.orderId = nextId++;
     }
 
 
@@ -59,8 +61,9 @@ public class Order {
 
     public Order(Customer customer, List<OrderItem> items) {
         this.customer = customer;
-        this.items = items;
+        this.items = new ArrayList<>(items);
         this.orderDate = LocalDateTime.now();
+        this.orderId = nextId++;
     }
 
 

@@ -27,6 +27,12 @@ public class DeliveryService {
         this.couriers = new ArrayList<>();
     }
 
+    // --------ADDED -ochwada --------------
+    public void addCourier(Courier courier) {
+        couriers.add(courier);
+    }
+    //  ------------------ ------------------
+
     /**
      * Attempts to assign an available courier to the given order.
      * <p>

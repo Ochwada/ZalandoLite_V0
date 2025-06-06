@@ -2,6 +2,8 @@ package com.zalando.lite;
 
 import org.junit.jupiter.api.*;
 
+import static org.junit.jupiter.api.Assertions.*;
+
 /**
  * Unit tests for the {@link CustomerManager} class.
  *
@@ -24,6 +26,7 @@ public class CustomerManagerTest {
 
     private CustomerManager customerManager;
 
+
     @BeforeAll
     static void initAll() {
         // Runs once before all tests
@@ -39,15 +42,30 @@ public class CustomerManagerTest {
 
     @Test
     void testRegisterAndRetrieveCustomer() {
-        // TODO: Create a new Customer
-        // TODO: Register it
-        // TODO: Retrieve it by ID and assert it's the same
+        // Create a new Customer
+        Customer customer = new Customer("Linda", "linda@gmx.de", true);
+        // Register it
+        customerManager.registerCustomer(customer);
+        int customerId = customer.getId();
+
+        // Retrieve it by ID and assert it's the same
+        Customer retrieved  = customerManager.getCustomerById(customerId);
+
+        // Assert it's same customer
+        assertNotNull(retrieved);
+        assertEquals(customer.getId(), retrieved.getId());
+        assertEquals(customer.getEmail(), retrieved.getEmail());
+        assertEquals(customer.getName(), retrieved.getName());
+        assertEquals(customer.isVip(), retrieved.isVip());
+
     }
 
     @Test
     void testRetrieveNonExistentCustomerReturnsNull() {
-        // TODO: Try getting a customer with an unused ID
-        // TODO: Assert that the result is null
+        // Try getting a customer with an unused ID
+        Customer results = customerManager.getCustomerById(99);
+        // Assert that the result is null
+        assertNull(results);
     }
 
     @AfterEach
