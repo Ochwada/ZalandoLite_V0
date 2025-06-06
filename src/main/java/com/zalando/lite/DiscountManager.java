@@ -1,9 +1,14 @@
 package com.zalando.lite;
 
 import com.zalando.lite.annotations.VIP;
+import com.zalando.lite.discountSystem.CategoryDiscount;
+import com.zalando.lite.discountSystem.Discount;
+import com.zalando.lite.discountSystem.VipDiscount;
 
 import java.lang.reflect.Field;
 import java.util.*;
+
+import static com.zalando.lite.discountSystem.CategoryDiscount.*;
 
 /**
  * Applies discount logic for customers and products in the ZalandoLite system.
@@ -32,34 +37,25 @@ public class DiscountManager {
      * @return the final price after discount
      */
 
-    // Additional discount off a specific product
-    Map<String, Double> categoryDiscounted = Map.of(
-            "electronics", 0.5,
-            "shirt", 0.10,
-            "Jackets", 0.45,
-            "shoes", 0.20
-    );
-
     public double applyDiscount(Customer customer, Product product) {
         double basePrice = product.getPrice();
-        double discount = 0.00;
 
-        // 10% discount on vip
-        if (customer.isVip()) {
-            discount += 0.10;
+        List<Discount> discounts = List.of(new VipDiscount(), new CategoryDiscount());
+        double totalDiscount = 0.00;
+
+        // check if a category discount is applicable
+        if (CategoryDiscount.isCategoryDiscounted(product)) {
+            System.out.println("Category discount applicable for: " + product.getCategory());
         }
 
-        // Category-based discount
-        String category = product.getCategory().toLowerCase();
-        /*if (categoryDiscounted.containsKey(category)){
-            discount += categoryDiscounted.get(category);
-        }*/
+        for (Discount discount : discounts){
+            totalDiscount += discount.calculate(customer, product);
+        }
 
-        discount += categoryDiscounted.getOrDefault(category, 0.0);
+        double finalPrice = basePrice * (1 - totalDiscount);
 
-        double finalPrice = basePrice * (1 - discount);
         System.out.printf("Base price: %2f, Discount: %.0f%%, Final price: %.2f%n",
-                basePrice, (discount * 100), finalPrice);
+                basePrice, (totalDiscount * 100), finalPrice);
 
         return finalPrice;
     }
@@ -88,14 +84,5 @@ public class DiscountManager {
         return false; // if no VIP field or error occurs
     }
 
-    /**
-     * Checks if the product qualifies for a category-based discount.
-     *
-     * @param product the product to check
-     * @return true if the category matches discount rules
-     */
-    private boolean isCategoryDiscounted(Product product) {
-        String category = product.getCategory().toLowerCase();
-        return categoryDiscounted.containsKey(category);
-    }
+
 }

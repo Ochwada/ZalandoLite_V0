@@ -44,6 +44,8 @@ public class Main {
             System.out.println("5. Export Delivery Report");
             System.out.println("6. View All Customers");
             System.out.println("7. View All Products and Stock");
+            System.out.println("8. Undo Last Action");
+            System.out.println("9. Simulate Deliveries (Parallel Threads)");
             System.out.println("0. Exit");
             System.out.print("Enter choice: ");
 
@@ -51,14 +53,45 @@ public class Main {
 
 
             switch (choice) {
-                case "1" -> addCustomer();
-                case "2" -> addProduct();
-                case "3" -> createOrder();
-                case "4" -> viewOrders();
-                case "5" -> exportDeliveryReport();
-                case "6" -> viewCustomers();
-                case "7" -> viewProducts();
-
+                case "1" -> {
+                    addCustomer();
+                    actionManager.recordAction("Customer Added");
+                }
+                case "2" -> {
+                    addProduct();
+                    actionManager.recordAction("Product Added");
+                }
+                case "3" -> {
+                    createOrder();
+                    actionManager.recordAction("Order Created");
+                }
+                case "4" -> {
+                    viewOrders();
+                    actionManager.recordAction("Order Viewed");
+                }
+                case "5" -> {
+                    exportDeliveryReport();
+                    actionManager.recordAction("Exported Delivery Report");
+                }
+                case "6" -> {
+                    viewCustomers();
+                    actionManager.recordAction("View All Customers");
+                }
+                case "7" -> {
+                    viewProducts();
+                    actionManager.recordAction("View All Products");
+                }
+                case "8" -> {
+                    if (actionManager.hasHistory()) {
+                        actionManager.undoLastAction();
+                    } else {
+                        System.out.println("Nothing to undo.");
+                    }
+                }
+                case "9" -> {
+                    simulateDeliveries();
+                    actionManager.recordAction("Simulated Parallel Deliveries");
+                }
                 case "0" -> {
                     running = false;
                     System.out.println("👋 Exiting ZalandoLite. Goodbye!");
@@ -69,19 +102,55 @@ public class Main {
 
 
     }
+
+
     private static final CustomerManager customerManager = new CustomerManager();
     private static final InventoryManager inventoryManager = new InventoryManager();
+
     private static final OrderManager orderManager = new OrderManager(inventoryManager);
     private static final ReportManager reportManager = new ReportManager();
     private static final DeliveryService deliveryService = new DeliveryService();
+    private static final ActionManager actionManager = new ActionManager();
 
+    // private static final EntityManager<Customer> customerManager = new EntityManager<>();
+    // private static final EntityManager<Product> productManager = new EntityManager<>();
 
-    public static   Scanner scanner = new Scanner(System.in);
+    public static Scanner scanner = new Scanner(System.in);
 
+    // ------- Case 9: View Orders -------
+    public static void simulateDeliveries() {
+        System.out.println("Enter number of deliveries to simulate:");
+        int count = Integer.parseInt(scanner.nextLine());
 
+        List<DeliveryThread> threads = new ArrayList<>();
 
-    // Case 7: View Orders
-    public static void viewProducts(){
+        for (int i = 0; i < count; i++) {
+            Order dummyOrder = new Order();
+            Delivery delivery = deliveryService.assignCourier(dummyOrder);
+
+            if (delivery != null) {
+                DeliveryThread thread = new DeliveryThread(delivery);
+                threads.add(thread);
+                thread.start(); // start delivery thread
+            } else {
+                System.out.println("No available courier for delivery #" + (i + 1));
+            }
+        }
+
+        // Wait for all threads to complete
+        for (DeliveryThread thread : threads) {
+            try {
+                thread.join();
+            } catch (InterruptedException e) {
+                System.err.println("Thread interrupted.");
+            }
+        }
+
+        System.out.println("All deliveries completed (if couriers were available).");
+    }
+
+    // ------- Case 7: View Orders -------
+    public static void viewProducts() {
         List<Product> products = inventoryManager.getAllProducts(); // uses shared inventoryManager
 
         if (products == null || products.isEmpty()) {
@@ -100,7 +169,7 @@ public class Main {
         }
     }
 
-    // Case 6 : View Orders
+    // ------- Case 6 : View Orders-------
     public static void viewCustomers() {
 
         Map<Integer, Customer> customers = customerManager.getAllCustomers();
@@ -121,7 +190,7 @@ public class Main {
         }
     }
 
-    // Case 5 : View Orders
+    // ------- Case 5 : View Orders -------
     public static void exportDeliveryReport() {
 
         String reportPath = reportManager.getDefaultReportPath();
@@ -140,7 +209,7 @@ public class Main {
 
     }
 
-    // Case 4 : View Orders
+    //-------  Case 4 : View Orders -------
     public static void viewOrders() {
 
         System.out.println("Enter customer ID to view order: ");
@@ -155,9 +224,18 @@ public class Main {
                 System.out.println(o);
             }
         }
+        // Prints out order summary statistics
+        double revenue = orderManager.getTotalRevenue();
+        System.out.printf("Total Revenue: €%.2f%n", revenue);
+
+        double avg = orderManager.getMeanOrderValue();
+        System.out.printf("Average Order Value: €%.2f%n", avg);
+
+        Order topOrder = orderManager.getHighestValueOrder();
+        System.out.printf("Top Order Total: €%.2f%n", (topOrder != null ? topOrder.calculateTotal() : 0.0));
     }
 
-    // Case 3 : CreateOrder
+    // -------  Case 3 : CreateOrder -------
     public static void createOrder() {
 
         System.out.println("Enter customer ID: ");
@@ -222,7 +300,7 @@ public class Main {
         }
     }
 
-    // Case 2 : Add Product
+    // ------- Case 2 : Add Product -------
     public static void addProduct() {
         System.out.println("Enter Product name: ");
         String pname = scanner.nextLine();
@@ -241,7 +319,7 @@ public class Main {
         System.out.println("Product added.");
     }
 
-    // Case 1 : Add Customer
+    // ------- Case 1 : Add Customer -------
     public static void addCustomer() {
         boolean isVip = false;
 

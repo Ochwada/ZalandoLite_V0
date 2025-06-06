@@ -115,4 +115,64 @@ public class OrderManager {
             this.inventoryManager.reduceStock(product.getId(), orderedQty);
         }
     }
+
+    // -----------------------------------------------------
+    // ----Bonus Challenge
+    // -----------------------------------------------------
+
+    /**
+     * Calculates the total revenue from all orders across all customers.
+     *
+     * @return total revenue as a double
+     */
+
+    public double getTotalRevenue() {
+        double total = 0.0;
+
+        for (List<Order> orders : customerOrders.values()) {
+            for (Order order : orders) {
+                total += order.calculateTotal();
+            }
+        }
+        return total;
+    }
+
+    /**
+     * Calculates the average value of all orders.
+     *
+     * @return average order (mean)  value, or 0.0 if no orders exist
+     */
+    public double getMeanOrderValue() {
+        int orderCount = 0;
+        double total = 0.0;
+
+        for (List<Order> orders : customerOrders.values()) {
+            for (Order order : orders) {
+                total += order.calculateTotal();
+                orderCount++;
+            }
+        }
+
+        return orderCount == 0 ? 0.0 : total / orderCount; // the mean_value = total/ n
+    }
+
+    public Order getHighestValueOrder(){
+        Order highest = null;
+        double maxValue = 0.0;
+
+        for (List<Order> orders : customerOrders.values()) {
+            for (Order order : orders) {
+                double total = order.calculateTotal();
+
+                if (highest == null || total > maxValue) {
+                    maxValue = total;
+                    highest = order;
+                }
+            }
+        }
+
+        return highest;
+    }
+
+
 }
