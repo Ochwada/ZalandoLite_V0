@@ -1,4 +1,4 @@
-package com.zalando.lite.managers;
+package com.zalando.lite.managerSystem;
 
 
 import java.util.*;

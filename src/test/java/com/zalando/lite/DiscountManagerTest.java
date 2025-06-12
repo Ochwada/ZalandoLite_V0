@@ -1,7 +1,7 @@
 package com.zalando.lite;
 
 import com.zalando.lite.customer.Customer;
-import com.zalando.lite.managers.DiscountManager;
+import com.zalando.lite.managerSystem.DiscountManager;
 import com.zalando.lite.products.Product;
 import org.junit.jupiter.api.*;
 

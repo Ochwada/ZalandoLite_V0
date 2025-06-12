@@ -1,8 +1,8 @@
 package com.zalando.lite;
 
 import com.zalando.lite.customer.Customer;
-import com.zalando.lite.managers.InventoryManager;
-import com.zalando.lite.managers.OrderManager;
+import com.zalando.lite.managerSystem.InventoryManager;
+import com.zalando.lite.managerSystem.OrderManager;
 import com.zalando.lite.order.Order;
 import com.zalando.lite.order.OrderItem;
 import com.zalando.lite.products.Product;

@@ -1,6 +1,6 @@
 package com.zalando.lite;
 
-import com.zalando.lite.managers.InventoryManager;
+import com.zalando.lite.managerSystem.InventoryManager;
 import com.zalando.lite.products.Product;
 import org.junit.jupiter.api.*;
 

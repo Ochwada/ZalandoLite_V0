@@ -52,6 +52,10 @@ public class Product {
         XS, S, M, L, XL, XXL
     }
 
+    public enum SHOE_SIZE {
+        EU36, EU37, EU38, EU39, EU40, EU41, EU42, EU43, EU44, EU45, EU46, EU47
+    }
+
     /**
      * Constructor to initialize the product fields.
      * Used during product setup or inventory population.
@@ -74,18 +78,6 @@ public class Product {
         this.stock = stock;
         //this.availableSizes = new HashMap<>(sizeStock);
         this.availableSizes = new ArrayList<>();
-
-        if (isClothingCategory(category)){
-            if (availableSizes == null || availableSizes.isEmpty()){
-                System.err.println("Available sizes must be provided for clothing categories.");
-            } else {
-                this.availableSizes = new ArrayList<>(availableSizes);
-            }
-        } else {
-            this.availableSizes = new ArrayList<>();
-        }
-
-
 
     }
 
@@ -174,11 +166,5 @@ public class Product {
                 '}';
     }
 
-    // Helper method
-    public  boolean isClothingCategory(String category){
-        String lowerCaseCategory  = category.toLowerCase();
 
-        return lowerCaseCategory.equals("clothing") || lowerCaseCategory.equals("shoes");
-
-    }
 }

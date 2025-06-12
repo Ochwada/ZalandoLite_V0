@@ -1,4 +1,4 @@
-package com.zalando.lite.managers;
+package com.zalando.lite.managerSystem;
 
 import com.zalando.lite.products.Product;
 
@@ -39,9 +39,32 @@ public class InventoryManager {
      * @param product the product to add to the inventory
      */
     public void addProduct(Product product) {
+        // SHOULD ADD : the size part
+        if (isClothingCategory(product.getCategory())) {
+            if (product.getAvailableSizes() == null ||
+                    product.getAvailableSizes().isEmpty()) {
+                throw new IllegalArgumentException("Clothing product must have sizes.");
+            }
+        } else if (isShoesCategory(product.getCategory())) {
+            if (product.getAvailableSizes() == null ||
+                    product.getAvailableSizes().isEmpty()) {
+                throw new IllegalArgumentException("Shoes product must have sizes.");
+            }
+        }
+
 
         products.add(product);
-        // SHOULD ADD : the size part
+    }
+
+    // Helper methods
+    public boolean isClothingCategory(String category) {
+        String lowerCaseCategory = category.toLowerCase();
+        return lowerCaseCategory.equals("clothing");
+    }
+
+    public boolean isShoesCategory(String category) {
+        String lowerCaseCategory = category.toLowerCase();
+        return lowerCaseCategory.equals("Shoes");
     }
 
     /**
@@ -115,8 +138,8 @@ public class InventoryManager {
      * @return true if product exists and has stock
      */
     public boolean isProductAvailable(int productId) {
-        for (Product product : products){
-            if (product.getId() == productId ){
+        for (Product product : products) {
+            if (product.getId() == productId) {
                 return product.getStock() > 0;
             }
         }

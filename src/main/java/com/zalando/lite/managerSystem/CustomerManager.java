@@ -1,4 +1,4 @@
-package com.zalando.lite.managers;
+package com.zalando.lite.managerSystem;
 
 import com.zalando.lite.customer.Customer;
 

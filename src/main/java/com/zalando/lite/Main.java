@@ -5,15 +5,12 @@ import com.zalando.lite.customer.Customer;
 import com.zalando.lite.delivery.Delivery;
 import com.zalando.lite.delivery.DeliveryService;
 import com.zalando.lite.delivery.DeliveryThread;
-import com.zalando.lite.managers.*;
+import com.zalando.lite.managerSystem.*;
 import com.zalando.lite.order.Order;
 import com.zalando.lite.order.OrderItem;
 import com.zalando.lite.products.Product;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * The entry point of the ZalandoLite application.
@@ -322,7 +319,17 @@ public class Main {
         double price = Double.parseDouble(scanner.nextLine());
 
         System.out.println("Stock: ");
-        int stock = Integer.parseInt(scanner.nextLine());
+        //int stock = Integer.parseInt(scanner.nextLine());
+        int stock = scanner.nextInt();
+
+        List<Product.SIZE> sizes = new ArrayList<>();
+        List<Product.SHOE_SIZE> shoeSizes = new ArrayList<>();
+
+//        if (inventoryManager.isClothingCategory(category)){
+//            sizes =
+//        }
+
+
 
         Product product = new Product(pname, category, price, stock);
         inventoryManager.addProduct(product);
