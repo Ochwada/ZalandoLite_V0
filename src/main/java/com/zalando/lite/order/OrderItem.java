@@ -1,4 +1,6 @@
-package com.zalando.lite;
+package com.zalando.lite.order;
+
+import com.zalando.lite.products.Product;
 
 /**
  * Represents a single line item in an {@link Order}.

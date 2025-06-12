@@ -1,6 +1,4 @@
-package com.zalando.lite;
-
-import java.util.*;
+package com.zalando.lite.courier;
 
 /**
  * Represents a courier who delivers customer orders.
@@ -30,7 +28,7 @@ public class Courier {
     // True if courier is available for assignment
     private boolean available;
 
-    private int nextId = 100;
+    private int nextId = 1;
 
     /**
      * Constructor to initialize a Courier.

@@ -1,4 +1,4 @@
-package com.zalando.lite;
+package com.zalando.lite.products;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -46,7 +46,7 @@ public class Product {
     private List<SIZE> availableSizes;
 
 
-    private static int nextId = 1000;
+    private static int nextId = 1;
 
     public enum SIZE {
         XS, S, M, L, XL, XXL
@@ -74,6 +74,19 @@ public class Product {
         this.stock = stock;
         //this.availableSizes = new HashMap<>(sizeStock);
         this.availableSizes = new ArrayList<>();
+
+        if (isClothingCategory(category)){
+            if (availableSizes == null || availableSizes.isEmpty()){
+                System.err.println("Available sizes must be provided for clothing categories.");
+            } else {
+                this.availableSizes = new ArrayList<>(availableSizes);
+            }
+        } else {
+            this.availableSizes = new ArrayList<>();
+        }
+
+
+
     }
 
     // Empty Constructor
@@ -159,5 +172,13 @@ public class Product {
                 ", stock=" + stock +
                 ", availableSizes=" + availableSizes +
                 '}';
+    }
+
+    // Helper method
+    public  boolean isClothingCategory(String category){
+        String lowerCaseCategory  = category.toLowerCase();
+
+        return lowerCaseCategory.equals("clothing") || lowerCaseCategory.equals("shoes");
+
     }
 }

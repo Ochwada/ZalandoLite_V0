@@ -1,4 +1,7 @@
-package com.zalando.lite;
+package com.zalando.lite.review;
+
+import com.zalando.lite.customer.Customer;
+import com.zalando.lite.products.Product;
 
 import java.time.LocalDateTime;
 

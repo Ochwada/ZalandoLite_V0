@@ -1,5 +1,15 @@
 package com.zalando.lite;
 
+import com.zalando.lite.courier.Courier;
+import com.zalando.lite.customer.Customer;
+import com.zalando.lite.delivery.Delivery;
+import com.zalando.lite.delivery.DeliveryService;
+import com.zalando.lite.delivery.DeliveryThread;
+import com.zalando.lite.managers.*;
+import com.zalando.lite.order.Order;
+import com.zalando.lite.order.OrderItem;
+import com.zalando.lite.products.Product;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

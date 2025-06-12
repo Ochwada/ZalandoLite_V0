@@ -1,5 +1,7 @@
 package com.zalando.lite;
 
+import com.zalando.lite.customer.Customer;
+import com.zalando.lite.managers.CustomerManager;
 import org.junit.jupiter.api.*;
 
 import static org.junit.jupiter.api.Assertions.*;

@@ -1,4 +1,7 @@
-package com.zalando.lite;
+package com.zalando.lite.delivery;
+
+import com.zalando.lite.courier.Courier;
+import com.zalando.lite.order.Order;
 
 import java.util.*;
 

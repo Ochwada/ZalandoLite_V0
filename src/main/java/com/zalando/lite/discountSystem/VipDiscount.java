@@ -1,8 +1,8 @@
 package com.zalando.lite.discountSystem;
 
 
-import com.zalando.lite.Customer;
-import com.zalando.lite.Product;
+import com.zalando.lite.customer.Customer;
+import com.zalando.lite.products.Product;
 
 /**
  * *******************************************************

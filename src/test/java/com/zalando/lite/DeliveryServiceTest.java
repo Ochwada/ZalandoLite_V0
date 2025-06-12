@@ -1,5 +1,12 @@
 package com.zalando.lite;
 
+import com.zalando.lite.courier.Courier;
+import com.zalando.lite.customer.Customer;
+import com.zalando.lite.delivery.Delivery;
+import com.zalando.lite.delivery.DeliveryService;
+import com.zalando.lite.order.Order;
+import com.zalando.lite.order.OrderItem;
+import com.zalando.lite.products.Product;
 import org.junit.jupiter.api.*;
 
 
@@ -29,7 +36,7 @@ public class DeliveryServiceTest {
     private DeliveryService deliveryService;
     private Courier availableCourier;
     private Courier busyCourier;
-    private Order dummyOrder;
+    private com.zalando.lite.order.Order dummyOrder;
 
     @BeforeEach
     void setUp() {

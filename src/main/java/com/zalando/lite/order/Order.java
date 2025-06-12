@@ -1,4 +1,7 @@
-package com.zalando.lite;
+package com.zalando.lite.order;
+
+import com.zalando.lite.courier.Courier;
+import com.zalando.lite.customer.Customer;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -38,7 +41,7 @@ public class Order {
 
     // ADDING COURIER
     private Courier courier;
-    private static int nextId = 1000;
+    private static int nextId = 1;
     /**
      * Constructor to initialize an order with a customer and list of items.
      * <p>

@@ -1,9 +1,9 @@
 package com.zalando.lite;
 
-import com.zalando.lite.annotations.*;
+import com.zalando.lite.customer.Customer;
+import com.zalando.lite.managers.DiscountManager;
+import com.zalando.lite.products.Product;
 import org.junit.jupiter.api.*;
-
-import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 

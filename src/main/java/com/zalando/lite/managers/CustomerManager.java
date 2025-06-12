@@ -1,4 +1,6 @@
-package com.zalando.lite;
+package com.zalando.lite.managers;
+
+import com.zalando.lite.customer.Customer;
 
 import java.util.*;
 
@@ -21,7 +23,7 @@ public class CustomerManager {
     // Stores customers using their ID as the key for quick access
     private Map<Integer, Customer> customers;
 
-    private int nextCustomerId = 100;
+    private int nextCustomerId = 1;
 
     public CustomerManager(Map<Integer, Customer> customers) {
         this.customers = new HashMap<>();

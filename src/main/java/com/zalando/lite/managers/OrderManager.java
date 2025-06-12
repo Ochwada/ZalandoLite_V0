@@ -1,4 +1,9 @@
-package com.zalando.lite;
+package com.zalando.lite.managers;
+
+import com.zalando.lite.customer.Customer;
+import com.zalando.lite.order.Order;
+import com.zalando.lite.order.OrderItem;
+import com.zalando.lite.products.Product;
 
 import java.util.*;
 

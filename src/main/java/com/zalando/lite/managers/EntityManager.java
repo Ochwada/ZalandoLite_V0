@@ -1,4 +1,4 @@
-package com.zalando.lite;
+package com.zalando.lite.managers;
 
 
 /**

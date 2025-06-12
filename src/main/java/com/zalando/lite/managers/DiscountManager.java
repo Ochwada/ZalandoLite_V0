@@ -1,14 +1,14 @@
-package com.zalando.lite;
+package com.zalando.lite.managers;
 
+import com.zalando.lite.customer.Customer;
 import com.zalando.lite.annotations.VIP;
 import com.zalando.lite.discountSystem.CategoryDiscount;
 import com.zalando.lite.discountSystem.Discount;
 import com.zalando.lite.discountSystem.VipDiscount;
+import com.zalando.lite.products.Product;
 
 import java.lang.reflect.Field;
 import java.util.*;
-
-import static com.zalando.lite.discountSystem.CategoryDiscount.*;
 
 /**
  * Applies discount logic for customers and products in the ZalandoLite system.

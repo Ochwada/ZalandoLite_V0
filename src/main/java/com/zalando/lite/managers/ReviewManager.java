@@ -1,4 +1,6 @@
-package com.zalando.lite;
+package com.zalando.lite.managers;
+
+import com.zalando.lite.review.Review;
 
 import java.util.*;
 

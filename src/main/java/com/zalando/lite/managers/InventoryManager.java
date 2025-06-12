@@ -1,4 +1,6 @@
-package com.zalando.lite;
+package com.zalando.lite.managers;
+
+import com.zalando.lite.products.Product;
 
 import java.util.ArrayList;
 import java.util.List;

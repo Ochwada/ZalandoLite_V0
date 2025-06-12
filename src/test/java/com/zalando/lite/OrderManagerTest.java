@@ -1,8 +1,13 @@
 package com.zalando.lite;
 
+import com.zalando.lite.customer.Customer;
+import com.zalando.lite.managers.InventoryManager;
+import com.zalando.lite.managers.OrderManager;
+import com.zalando.lite.order.Order;
+import com.zalando.lite.order.OrderItem;
+import com.zalando.lite.products.Product;
 import org.junit.jupiter.api.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -57,7 +62,7 @@ public class OrderManagerTest {
         testCustomer.setName("Linda");
 
         // Step 4: Create the order
-        Order order = orderManager.createOrder(testCustomer, items);
+        com.zalando.lite.order.Order order = orderManager.createOrder(testCustomer, items);
 
         // Assert order is not null
         assertNotNull(order, "Order should be created successfully.");
@@ -85,7 +90,7 @@ public class OrderManagerTest {
         testCustomer.setName("Maya");
 
         // Try to create an order and assert the result is null or handled safely
-        Order order = orderManager.createOrder(testCustomer, items);
+        com.zalando.lite.order.Order order = orderManager.createOrder(testCustomer, items);
 
         // Assert that order creation fails
         assertNull(order, "Order should not be created if product is out of stock.");
@@ -106,8 +111,8 @@ public class OrderManagerTest {
         testCustomer.setName("Luna");
 
         // Create two orders for the same customer
-        Order order1 = orderManager.createOrder(testCustomer, List.of(item1));
-        Order order2 = orderManager.createOrder(testCustomer, List.of(item2));
+        com.zalando.lite.order.Order order1 = orderManager.createOrder(testCustomer, List.of(item1));
+        com.zalando.lite.order.Order order2 = orderManager.createOrder(testCustomer, List.of(item2));
 
         // Retrieve stored orders
         List<Order> orders = orderManager.getOrdersForCustomer(testCustomer.getId());

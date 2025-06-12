@@ -1,8 +1,9 @@
 package com.zalando.lite;
 
+import com.zalando.lite.managers.InventoryManager;
+import com.zalando.lite.products.Product;
 import org.junit.jupiter.api.*;
 
-import java.util.Arrays;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
