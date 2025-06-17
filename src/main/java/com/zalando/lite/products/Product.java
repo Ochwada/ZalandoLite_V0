@@ -1,8 +1,6 @@
 package com.zalando.lite.products;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import com.zalando.lite.annotations.Featured;
 
@@ -39,46 +37,39 @@ public class Product {
     // Price of the product
     private double price;
 
-    // Quantity in stock (used by InventoryManager and OrderManager)
+    // Quantity in stock -General stock (used by InventoryManager and OrderManager)
     private int stock;
 
-    // List of size options (e.g., "S", "M", "L")
-    private List<SIZE> availableSizes;
-
-
     private static int nextId = 1;
+    // -------------------------------------------------------------
 
-    public enum SIZE {
+    // List of clothing size options
+    private Map<CLOTH_SIZE, Integer> clothingStock;
+
+    public enum CLOTH_SIZE {
         XS, S, M, L, XL, XXL
     }
+
+
+    // List of shoes size options
+    private Map<SHOE_SIZE, Integer> shoeStock;
 
     public enum SHOE_SIZE {
         EU36, EU37, EU38, EU39, EU40, EU41, EU42, EU43, EU44, EU45, EU46, EU47
     }
+    // -------------------------------------------------------------
 
     /**
      * Constructor to initialize the product fields.
      * Used during product setup or inventory population.
      */
-
-    public Product(int id, String name, String category, double price, int stock, List<SIZE> availableSizes) {
-        this.id = id;
+    // Constructor for general products
+    public Product(String name, String category, double price, int stock) {
+        this.id = nextId++;  // Auto-generate id
         this.name = name;
         this.category = category;
         this.price = price;
         this.stock = stock;
-        this.availableSizes = new ArrayList<>(); // initialize the array list of SIZE.
-    }
-
-    public Product(String pname, String category, double price, int stock) {
-        this.id = nextId++;
-        this.name = pname;
-        this.category = category;
-        this.price = price;
-        this.stock = stock;
-        //this.availableSizes = new HashMap<>(sizeStock);
-        this.availableSizes = new ArrayList<>();
-
     }
 
     // Empty Constructor
@@ -134,13 +125,24 @@ public class Product {
     }
 
     // Getter and setter for size options
-    public List<SIZE> getAvailableSizes() {
-        return Collections.unmodifiableList(availableSizes);
+
+
+    public Map<CLOTH_SIZE, Integer> getClothingStock() {
+        return clothingStock;
     }
 
-    public void setAvailableSizes(List<SIZE> sizes) {
-        this.availableSizes = new ArrayList<>(sizes);
+    public void setClothingStock(Map<CLOTH_SIZE, Integer> clothingStock) {
+        this.clothingStock = new HashMap<>(clothingStock);
     }
+
+    public Map<SHOE_SIZE, Integer> getShoeStock() {
+        return shoeStock;
+    }
+
+    public void setShoeStock(Map<SHOE_SIZE, Integer> shoeStock) {
+        this.shoeStock = shoeStock;
+    }
+
 
     /**
      * Optional method to check if the product is out of stock.
@@ -162,9 +164,8 @@ public class Product {
                 ", category='" + category + '\'' +
                 ", price=" + price +
                 ", stock=" + stock +
-                ", availableSizes=" + availableSizes +
+                ", clothingStock=" + (clothingStock != null ? clothingStock : "N/A") +
+                ", shoeStock=" + (shoeStock != null ? shoeStock : "N/A") +
                 '}';
     }
-
-
 }

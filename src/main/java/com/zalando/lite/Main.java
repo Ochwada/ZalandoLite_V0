@@ -313,7 +313,7 @@ public class Main {
         String pname = scanner.nextLine();
 
         System.out.println("Category: ");
-        String category = scanner.nextLine();
+        String category = scanner.nextLine().toLowerCase();
 
         System.out.println("Price: ");
         double price = Double.parseDouble(scanner.nextLine());
@@ -321,20 +321,31 @@ public class Main {
         System.out.println("Stock: ");
         //int stock = Integer.parseInt(scanner.nextLine());
         int stock = scanner.nextInt();
+        scanner.nextLine();
 
-        List<Product.SIZE> sizes = new ArrayList<>();
-        List<Product.SHOE_SIZE> shoeSizes = new ArrayList<>();
-
-//        if (inventoryManager.isClothingCategory(category)){
-//            sizes =
+//        Product product;
+//
+//        if (category.equals("clothing")){
+//            Map<Product.CLOTH_SIZE, Integer> clothingStock = new HashMap<>();
+//
+//            for (Product.CLOTH_SIZE size : Product.CLOTH_SIZE.values()){
+//                System.out.println("Enter stock for size " + size + ": ");
+//
+//                int sizeStock = scanner.nextInt();
+//                clothingStock.put(size, sizeStock);
+//            }
+//            scanner.nextLine();
+//            product = Product.
 //        }
 
 
-
         Product product = new Product(pname, category, price, stock);
+
+
         inventoryManager.addProduct(product);
         System.out.println("Product added.");
     }
+
 
     // ------- Case 1 : Add Customer -------
     public static void addCustomer() {

@@ -40,17 +40,17 @@ public class InventoryManager {
      */
     public void addProduct(Product product) {
         // SHOULD ADD : the size part
-        if (isClothingCategory(product.getCategory())) {
-            if (product.getAvailableSizes() == null ||
-                    product.getAvailableSizes().isEmpty()) {
-                throw new IllegalArgumentException("Clothing product must have sizes.");
-            }
-        } else if (isShoesCategory(product.getCategory())) {
-            if (product.getAvailableSizes() == null ||
-                    product.getAvailableSizes().isEmpty()) {
-                throw new IllegalArgumentException("Shoes product must have sizes.");
-            }
-        }
+//        if (isClothingCategory(product.getCategory())) {
+//            if (product.getAvailableSizes() == null ||
+//                    product.getAvailableSizes().isEmpty()) {
+//                throw new IllegalArgumentException("Clothing product must have sizes.");
+//            }
+//        } else if (isShoesCategory(product.getCategory())) {
+//            if (product.getAvailableSizes() == null ||
+//                    product.getAvailableSizes().isEmpty()) {
+//                throw new IllegalArgumentException("Shoes product must have sizes.");
+//            }
+//        }
 
 
         products.add(product);
