@@ -1,5 +1,7 @@
 package com.zalando.lite.customer;
 
+import com.zalando.lite.annotations.VIP;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -31,6 +33,7 @@ public class Customer {
 
     // Whether the customer has VIP status (used for discounts)
     // This will be marked with @VIP annotation
+    @VIP
     private boolean isVip;
 
     // A list of the customer's favorite product categories (e.g., "Shoes", "Accessories")
