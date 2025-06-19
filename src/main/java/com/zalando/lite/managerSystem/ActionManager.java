@@ -9,25 +9,42 @@ import java.util.*;
  * File: ActionManager.java
  * Author: Ochwada
  * Date: Friday, 06.Jun.2025, 12:30 PM
- * Description:
+ * Description: The {@code ActionManager} class maintains a history of actions performed in the application to allow for
+ * * basic undo functionality.
  * Objective:
  * *******************************************************
  */
 
 
 public class ActionManager {
-    private Stack<String> actionHistory;
 
+    /**
+     * Stack that stores the history of user actions.
+     */
+    private final Stack<String> actionHistory;
+
+    /**
+     * Constructs a new ActionManager with an empty history stack.
+     */
     public ActionManager() {
         actionHistory = new Stack<>();
     }
 
-
+    /**
+     * Records an action by pushing it onto the history stack.
+     *
+     * @param action the description of the action performed
+     */
     public void recordAction(String action) {
         actionHistory.push(action);
         System.out.println("Action recorded: " + action);
     }
 
+    /**
+     * Undoes the last recorded action.
+     * This method simulates undoing by printing a message.
+     * Extend it to include actual rollback logic.
+     */
     public void undoLastAction() {
         if (actionHistory.isEmpty()) {
             System.out.println("No actions to undo.");
@@ -52,6 +69,11 @@ public class ActionManager {
         }
     }
 
+    /**
+     * Checks if the history stack contains any actions.
+     *
+     * @return {@code true} if there is at least one recorded action, {@code false} otherwise
+     */
     public boolean hasHistory() {
         return !actionHistory.isEmpty();
     }
